@@ -185,8 +185,13 @@ precmd(){
 
 }
 
-# Vi command line edit mode
-set -o vi
+# Vi command line edit mode with cross-terminal compatible indicators
+if [ -f ~/.vi-mode-indicator.sh ]; then
+    source ~/.vi-mode-indicator.sh
+else
+    # Fallback to basic vi mode if indicator script isn't available
+    set -o vi
+fi
 
 export FZF_DEFAULT_OPTS="--bind ctrl-b:preview-page-up,ctrl-f:preview-page-down --layout=reverse --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 
